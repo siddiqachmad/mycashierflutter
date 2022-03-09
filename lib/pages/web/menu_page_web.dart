@@ -15,7 +15,17 @@ class MenuPageWeb extends StatefulWidget {
 class _MenuPageWebState extends State<MenuPageWeb> {
   List<Keranjang> dataKeranjang=[];
   TextEditingController etBayar=new TextEditingController();
+  int totalBayar=0;
 
+  hitungTotalBayar(){
+    totalBayar=0;
+    if(dataKeranjang.length>0){
+      for(int i=0;i<dataKeranjang.length;i++){
+        int harga=dataKeranjang[i].harga;
+        totalBayar+=harga;
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -31,7 +41,7 @@ class _MenuPageWebState extends State<MenuPageWeb> {
                   onTap: (){
                     Keranjang keranjang=new Keranjang(id_menu: menu.id, nama_menu: menu.nama_menu, jumlah: 1, harga: menu.harga, gambar: menu.gambar);
                     dataKeranjang.add(keranjang);
-
+                    hitungTotalBayar();
                     setState(() {
 
                     });
@@ -105,7 +115,7 @@ class _MenuPageWebState extends State<MenuPageWeb> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Total Bayar :",
+          Text("Total Bayar : $totalBayar",
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 17.0,
